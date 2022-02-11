@@ -1,0 +1,15 @@
+.header_style {
+    text-align: center;
+    font-family: "Monaco";
+    font-size: 10em; 
+    margin-top: 40px;  
+}
+
+.graph {
+    margin-left: 10em;
+    margin-top: 4em;
+}
+
+.btn-toolbar {
+    margin-left: 30em;
+}
