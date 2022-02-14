@@ -1,6 +1,6 @@
 // set the dimensions of the graph
-var margin = {top: 35, right: 70, bottom: 30, left: 60},
-    width = 850
+var margin = {top: 25, right: 100, bottom: 30, left: 100},
+    width = screen.width-500
     height = 350
 
 // append the svg object to the body of the page
@@ -17,6 +17,18 @@ d3.csv("percentage_passed.csv", function(data) {
 
 //Setting scale parameters
 let parseDate = d3.timeParse("%Y");
+
+//create focus
+var focus = svg.append("g")                          
+    .style("display", "none"); 
+
+ // append the circle at the intersection               
+ focus.append("circle")                                
+ .attr("class", "y")                                
+ .style("fill", "none")                             
+ .style("stroke", "blue")                           
+ .attr("r", 4);                                     
+
 
 // Add X axis
 var x = d3.scaleTime()
@@ -56,8 +68,8 @@ svg.append("text")
     .y(function(d) { return y(d.percentage) })
     )
   
-  // Add dots
-  /*svg.append('g')
+ // Add dots
+  svg.append('g')
     .selectAll("dot")
     .data(data)
     .enter()
@@ -65,6 +77,28 @@ svg.append("text")
       .attr("cx", function (d) { return x(parseDate(d.years))} )
       .attr("cy", function (d) { return y(d.percentage)} )
       .attr("r", 3)
-      .style("fill", "#69b3a2")*/
+      .style("fill", "#69b3a2")
+    
+  // append the rectangle to capture mouse            
+  svg.append("rect")                                
+  .attr("width", width)                             
+  .attr("height", height)                            
+  .style("fill", "none")                             
+  .style("pointer-events", "all")                    
+  .on("mouseover", function() { focus.style("display", null); })
+  .on("mouseout", function() { focus.style("display", "none"); })
+  .on("mousemove",function(){ mousemove(data);})
+
+  
+  function mousemove(d) {                               
+    //console.log('mouse activity')
+    console.log(data.years)
+    
+    focus.select("circle.y")                           
+    .attr("transform",                             
+          "translate(" + d.years + "," +         
+                         d.percentage + ")");  
+}                                                      
 
 })
+
