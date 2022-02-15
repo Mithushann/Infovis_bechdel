@@ -2,16 +2,37 @@
     text-align: center;
     font-family: "Monaco";
     font-size: 10em; 
-    margin-top: 40px;  
+    margin-top: 10px;  
+}
+.wrapper {
+    width: 100%;
+    display:flex;
+    overflow: hidden; 
 }
 
 .graph {
-    margin-left: 10em;
-    margin-top: 4em;
+    border: 1px solid rgb(255, 255, 255);
+    margin-left: 50px;
+}
+.one-movie {
+    margin-left: 100px;
+    border: 2px solid rgb(5, 5, 5);
+   
 }
 
 .btn-toolbar {
-    margin-left: 40em;
+    margin-left: 20em;
     margin-top: 1em;
     margin-bottom: 1em;
+}
+.one-movie-text{
+    fill: rgb(0, 0, 0);
+    font-size: 20px;
+    font-family: sans-serif;
+}
+
+.year-text {
+    fill: rgb(0, 0, 0);
+    font-size: 20px;
+    font-family: sans-serif;
 }

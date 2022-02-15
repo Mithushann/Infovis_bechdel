@@ -1,43 +1,42 @@
 // set the dimensions of the graph
-var margin = {top: 25, right: 100, bottom: 30, left: 100},
-    width = screen.width-500
-    height = 350
+  var margin = {top: 25, right: 50, bottom: 30, left: 50},
+      width = screen.width-500
+      height = 350
 
-// append the svg object to the body of the page
-var svg = d3.select("#my_dataviz")
-  .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform",
-          "translate(" + margin.left + "," + margin.top + ")");
+  // append the svg object to the body of the page
+  var svg = d3.select("#my_dataviz")
+    .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+      .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")");
 
-//Read the data
-d3.csv("percentage_passed.csv", function(data) {
+  //Read the data
+  d3.csv("percentage_passed.csv", function(data) {
 
-//Setting scale parameters
-let parseDate = d3.timeParse("%Y");
+  //Setting scale parameters
+  let parseDate = d3.timeParse("%Y");
 
 //create focus
-var focus = svg.append("g")                          
-    .style("display", "none"); 
+  var focus = svg.append("g")                          
+      .style("display", "none");  
 
- // append the circle at the intersection               
- focus.append("circle")                                
- .attr("class", "y")                                
- .style("fill", "none")                             
- .style("stroke", "blue")                           
- .attr("r", 4);                                     
+   // append the circle at the intersection               
+   focus.append("circle")                                                              
+   .style("fill", "none")                             
+   .style("stroke", "blue")                           
+   .attr("r", 4);                                     
 
 
 // Add X axis
-var x = d3.scaleTime()
+  var x = d3.scaleTime()
     .domain([parseDate(1970), parseDate(2021)])
     .range([ 0, width ]);
-svg.append("g")
+  svg.append("g")
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x).ticks(5));
-svg.append("text")
+  svg.append("text")
     .attr("class", "x label")
     .attr("text-anchor", "end")
     .attr("x", width + 60)
@@ -80,25 +79,20 @@ svg.append("text")
       .style("fill", "#69b3a2")
     
   // append the rectangle to capture mouse            
-  svg.append("rect")                                
-  .attr("width", width)                             
-  .attr("height", height)                            
-  .style("fill", "none")                             
-  .style("pointer-events", "all")                    
-  .on("mouseover", function() { focus.style("display", null); })
-  .on("mouseout", function() { focus.style("display", "none"); })
-  .on("mousemove",function(){ mousemove(data);})
-
+  svg.append('g')
+  .selectAll("dot")
+  .data(data)
+  .enter()
+  .append("rect") 
+  .attr("x", function (d) { return(x(parseDate(d.years))-10)})                             
+  .attr("width",20)                             
+  .attr("height", height)                           
+  .style("fill", "white")
+  .style("opacity", .2)   
+  .on('mouseover', function (d, i) {d3.select(this).style('stroke', 'red')})
+  .on('mouseover', function (d, i) {d3.select(this).style('stroke', 'red')})
+  .on('mouseout', function (d, i) {d3.select(this).style('stroke', 'none')})
+  .on("mousemove",function(d)  {yearGraph(d.years)})     
   
-  function mousemove(d) {                               
-    //console.log('mouse activity')
-    console.log(data.years)
-    
-    focus.select("circle.y")                           
-    .attr("transform",                             
-          "translate(" + d.years + "," +         
-                         d.percentage + ")");  
-}                                                      
-
 })
 
