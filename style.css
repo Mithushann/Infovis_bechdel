@@ -4,19 +4,18 @@
     font-size: 10em; 
     margin-top: 10px;  
 }
-.wrapper {
-    width: 100%;
-    display:flex;
-    overflow: hidden; 
-}
 
 .graph {
     border: 1px solid rgb(255, 255, 255);
     margin-left: 50px;
 }
 .one-movie {
-    margin-left: 100px;
-    border: 2px solid rgb(5, 5, 5);
+    height: 400px;
+    width:1300px;
+    margin-left: 125px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    border: 1px solid rgb(0, 0, 0);
    
 }
 
@@ -29,6 +28,7 @@
     fill: rgb(0, 0, 0);
     font-size: 20px;
     font-family: sans-serif;
+    align-content: center;
 }
 
 .year-text {

@@ -34,16 +34,21 @@ var svg_year = d3.select("#year_graph1")
 //--------------------------------------------------
 let data1 = new Map();
 d3.csv("new_oil.csv", function(d) {
-  for(let i = 0; i < d.length; ++i) {
+ 
+for(let i = 0; i < d.length; ++i) {
     data1[d[i].year] = new Array();
 }
 for(let i = 0; i < d.length; ++i) {
     data1[d[i].year].push(d[i]) 
 }
 
+//print list of all movies
+// for(let i = 0; i < d.length; ++i) {
+//    console.log(data1[d[i].year])
+// }
+
   let year_=2021 //default year
   given_year = data1[year_]
-  console.log(given_year)
   passed_movies=new Array()
   failed_movies=new Array()
 
@@ -142,6 +147,4 @@ function yearGraph(year) {
         }
   }
 
-  function infoOneMovie(){
-    
-  }
+ 
