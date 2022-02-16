@@ -1,3 +1,141 @@
+
+// ------------------------------------------ FUNCTIONS ------------------------------------------- // 
+
+let data = new Map();
+let raw_data;
+
+//read in the csv file and filter to the wanted years
+d3.csv("new_oil.csv", function(k){
+
+    raw_data = k.filter(line => line.year > 1970);
+    for(let i = 0; i < raw_data.length; ++i) {
+        data[raw_data[i].year] = new Array();
+    }
+
+    for(let i = 0; i < raw_data.length; ++i) {
+        data[raw_data[i].year].push(raw_data[i])
+    }
+})
+
+//change between genres
+function change_genre(genre) {
+
+    let sorted = raw_data.filter(line => {return line.genres.includes(genre)});
+    
+    let sorted2 = new Map()
+    for(let i = 0; i < sorted.length; ++i) {
+        sorted2[sorted[i].year] = new Array();
+    }
+
+    for(let i = 0; i < sorted.length; ++i) {
+        sorted2[sorted[i].year].push(sorted[i])
+    }
+    
+    display_list(sorted2, genre)
+    
+}
+
+// for the button "all genres"
+function all_list() {
+    display_list(data, 'all_genres');
+}
+
+//display the list on button click
+function display_list(list, genre) {
+
+    let color;
+    
+    let l = svg.select("#" + genre);
+    let d = svg.select("#" + genre + "_dots");
+    if(l._groups[0][0]) {
+        l.remove();
+        d.remove();
+        return;
+    }
+    
+    if (genre == 'Comedy') 
+    {
+        color = "#fee001";
+    }
+    else if (genre == 'Action')
+    {
+        color = "#e90003";
+    }
+    else if (genre == 'Romance')
+    {
+        color = "#e372ba";
+    }
+    else if (genre == 'Drama')
+    {
+        color = "#2050bc";
+    }
+    else if (genre == 'Horror')
+    {
+        color = "#16140c";
+    }
+    else if (genre == 'Thriller')
+    {
+        color = "#646665";
+    }
+    else if (genre == 'Sci-Fi')
+    {
+        color = "#e86c03";
+    }
+    else if (genre == 'Family')
+    {
+        color = "#42a701";
+    }
+    else if (genre == 'all_genres')
+    {
+        color = "#6eddaa";
+    }
+     
+    let passed_movies = new Map();
+
+    for(let prop in list) {
+        passed_movies[prop] = 0;
+    }
+
+    for(let prop in list) {
+
+        for(let i = 0; i < list[prop].length; ++i) {
+
+            if(list[prop][i].rating == 3)
+            passed_movies[prop]++;
+        }
+    }
+
+    let graph_data = [];
+    for(let prop in passed_movies) {
+        graph_data.push({years: prop, percentage: passed_movies[prop] * 100/list[prop].length});
+    } 
+
+    // Add the line
+    svg.append("path")
+    .datum(graph_data)
+    .attr("id", genre)
+    .attr("fill", "none")
+    .attr("stroke", color)
+    .attr("stroke-width", 2)
+    .attr("d", d3.line()
+        .x(function(d) { return x(parseDate(d.years))})
+        .y(function(d) { return y(d.percentage) }));
+
+    //add the dots
+    svg.append('g')
+    .attr("id", genre + "_dots")
+    .selectAll("dot")
+    .data(graph_data)
+    .enter()
+    .append("circle")
+    .attr("cx", function (d) { return x(parseDate(d.years))} )
+    .attr("cy", function (d) { return y(d.percentage)} )
+    .attr("r", 6)
+    .style("fill", color)
+}
+
+// ----------------------------------------------------------------------------------------------------
+
 // set the dimensions of the graph
 var margin = {top: 35, right: 70, bottom: 30, left: 60},
     width = 850
@@ -11,9 +149,6 @@ var svg = d3.select("#my_dataviz")
   .append("g")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
-
-//Read the data
-d3.csv("percentage_passed.csv", function(data) {
 
 //Setting scale parameters
 let parseDate = d3.timeParse("%Y");
@@ -45,48 +180,8 @@ svg.append("text")
     .attr("y", -15)
     .text("percentage");
 
-  // Add the line
-  svg.append("path")
-  .datum(data)
-  .attr("fill", "none")
-  .attr("stroke", "steelblue")
-  .attr("stroke-width", 2)
-  .attr("d", d3.line()
-    .x(function(d) { return x(parseDate(d.years))})
-    .y(function(d) { return y(d.percentage) })
-    )
-  
-  // Add dots
-  svg.append('g')
-    .selectAll("dot")
-    .data(data)
-    .enter()
-    .append("circle")
-      .attr("cx", function (d) { return x(parseDate(d.years))} )
-      .attr("cy", function (d) { return y(d.percentage)} )
-      .attr("r", 6)
-      .style("fill", "#69b3a2")
-
-    //Hover functuion
-    .on('mouseover', function (d) {
-      d3.select(this)
-          .attr('opacity', '.5')
-      
-      svg.append("text")
-          .attr("id", "circleText")
-          .attr("x", x(parseDate(d.years)) - 15)
-          .attr("y", y(d.percentage)  - 30)
-          .text(d.years)
-
-      ;})
-    .on('mouseout', function (d, i) {
-        d3.select(this).transition()
-             .duration('50')
-             .attr('opacity', '1')
-
-        svg.select("#circleText").remove()
-
-        ;})
 
 
-})
+
+
+
