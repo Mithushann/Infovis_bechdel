@@ -2,18 +2,20 @@
 let data = new Map();
 let raw_data;
 
+//read in the csv file and filter to the wanted years
 d3.csv("new_oil.csv", function(k){
 
-    raw_data = k;
-    for(let i = 0; i < k.length; ++i) {
-        data[k[i].year] = new Array();
+    raw_data = k.filter(line => line.year > 1970);
+    for(let i = 0; i < raw_data.length; ++i) {
+        data[raw_data[i].year] = new Array();
     }
 
-    for(let i = 0; i < k.length; ++i) {
-        data[k[i].year].push(k[i])
+    for(let i = 0; i < raw_data.length; ++i) {
+        data[raw_data[i].year].push(raw_data[i])
     }
 })
 
+//change between genres
 function change_genre(genre) {
 
     let sorted = raw_data.filter(line => {return line.genres.includes(genre)});
@@ -27,17 +29,29 @@ function change_genre(genre) {
         sorted2[sorted[i].year].push(sorted[i])
     }
 
+
     display_list(sorted2);
 }
 
+// for the button "all genres"
 function all_list() {
     display_list(data);
 }
 
+//cler display onClick
+function clear_display(){
+    bool 
+    var svg = d3.select("path");
+    svg.selectAll("g").remove();
+}
+
+
+
+//display the list on button click
 function display_list(list) {
     
     let passed_movies = new Map();
-    console.log(list)
+    //console.log(list)
 
     for(let prop in list) {
         passed_movies[prop] = 0;
@@ -62,7 +76,7 @@ function display_list(list) {
 
     // Add X axis
     var x = d3.scaleTime()
-        .domain([parseDate(1900), parseDate(2021)])
+        .domain([parseDate(1970), parseDate(2021)])
         .range([ 0, width ]);
 
     // Add Y axis
@@ -74,9 +88,21 @@ function display_list(list) {
     svg.append("path")
         .datum(graph_data)
         .attr("fill", "none")
-        .attr("stroke", "steelblue")
+        .attr("stroke", "green")
         .attr("stroke-width", 2)
         .attr("d", d3.line()
             .x(function(d) { return x(parseDate(d.years))})
             .y(function(d) { return y(d.percentage) }));
+
+    //add the dots
+    svg.append('g')
+    .selectAll("dot")
+    .data(graph_data)
+    .enter()
+    .append("circle")
+      .attr("cx", function (d) { return x(parseDate(d.years))} )
+      .attr("cy", function (d) { return y(d.percentage)} )
+      .attr("r", 3)
+      .style("fill", "#69b3a2")
+    
 }
