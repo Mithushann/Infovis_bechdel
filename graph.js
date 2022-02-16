@@ -67,7 +67,7 @@
     .y(function(d) { return y(d.percentage) })
     )
   
- // Add dots
+  // Add dots
   svg.append('g')
     .selectAll("dot")
     .data(data)
@@ -75,7 +75,7 @@
     .append("circle")
       .attr("cx", function (d) { return x(parseDate(d.years))} )
       .attr("cy", function (d) { return y(d.percentage)} )
-      .attr("r", 3)
+      .attr("r", 6)
       .style("fill", "#69b3a2")
     
   // append the rectangle to capture mouse            
@@ -92,7 +92,24 @@
  
   
   .on('mouseout', function (d, i) {d3.select(this).style('stroke', 'none')})
-  .on("mousemove",function(d)  {yearGraph(d.years)})     
+  .on("mousemove",function(d)  {yearGraph(d.years)})  
+  .on('mouseover', function (d) { d3.select(this).attr('opacity', '.5')
+    
+    svg.append("text")
+        .attr("id", "circleText")
+        .attr("x", x(parseDate(d.years)) - 15)
+        .attr("y", y(d.percentage)  - 30)
+        .text(d.years)
+
+    ;})   
+  .on('mouseout', function (d, i) { 
+         d3.select(this).transition()
+           .duration('50')
+           .attr('opacity', '1')
+
+      svg.select("#circleText").remove()
+
+      ;})
   
 })
 
