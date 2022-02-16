@@ -89,8 +89,8 @@
   .attr("height", height)                           
   .style("fill", "white")
   .style("opacity", .2)   
-  .on('mouseover', function (d, i) {d3.select(this).style('stroke', 'red')})
-  .on('mouseover', function (d, i) {d3.select(this).style('stroke', 'red')})
+ 
+  
   .on('mouseout', function (d, i) {d3.select(this).style('stroke', 'none')})
   .on("mousemove",function(d)  {yearGraph(d.years)})     
   
