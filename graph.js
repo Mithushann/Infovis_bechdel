@@ -18,17 +18,6 @@
   //Setting scale parameters
   let parseDate = d3.timeParse("%Y");
 
-//create focus
-  var focus = svg.append("g")                          
-      .style("display", "none");  
-
-   // append the circle at the intersection               
-   focus.append("circle")                                                              
-   .style("fill", "none")                             
-   .style("stroke", "blue")                           
-   .attr("r", 4);                                     
-
-
 // Add X axis
   var x = d3.scaleTime()
     .domain([parseDate(1970), parseDate(2021)])
@@ -56,6 +45,7 @@
     .attr("y", -15)
     .text("percentage");
 
+
   // Add the line
   svg.append("path")
   .datum(data)
@@ -73,43 +63,29 @@
     .data(data)
     .enter()
     .append("circle")
+    .attr("id", "circ")
       .attr("cx", function (d) { return x(parseDate(d.years))} )
       .attr("cy", function (d) { return y(d.percentage)} )
       .attr("r", 6)
       .style("fill", "#69b3a2")
+      .style("opacity", 1) 
     
-  // append the rectangle to capture mouse            
-  svg.append('g')
-  .selectAll("dot")
-  .data(data)
-  .enter()
-  .append("rect") 
-  .attr("x", function (d) { return(x(parseDate(d.years))-10)})                             
-  .attr("width",20)                             
-  .attr("height", height)                           
-  .style("fill", "white")
-  .style("opacity", .2)   
- 
-  
-  .on('mouseout', function (d, i) {d3.select(this).style('stroke', 'none')})
-  .on("mousemove",function(d)  {yearGraph(d.years)})  
-  .on('mouseover', function (d) { d3.select(this).attr('opacity', '.5')
+ //.on("mousemove",function(d)  {yearGraph(d.years)})  
+ .on('mouseover', function (d) { 
+  yearGraph(d.years)
+   d3.select(this).style('opacity', .5).attr('r',10)
+  svg.append("text")
+      .attr("id", "circleText")
+      .attr("x", x(parseDate(d.years)) - 15)
+      .attr("y", y(d.percentage)  - 30)
+      .text(d.years)})  
+
+.on('mouseout', function (d, i) { 
+       d3.select(this)
+         .style('opacity', 1)
+         .attr('r',6)
     
-    svg.append("text")
-        .attr("id", "circleText")
-        .attr("x", x(parseDate(d.years)) - 15)
-        .attr("y", y(d.percentage)  - 30)
-        .text(d.years)
-
-    ;})   
-  .on('mouseout', function (d, i) { 
-         d3.select(this).transition()
-           .duration('50')
-           .attr('opacity', '1')
-
-      svg.select("#circleText").remove()
-
-      ;})
+    svg.select("#circleText").remove()})
   
 })
 
