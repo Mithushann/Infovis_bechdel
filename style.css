@@ -1,3 +1,9 @@
+.btn-outline-secondary:active, .active {
+    color: #6eddaa;
+    background-color: white;
+    
+}
+
 .header_style {
     text-align: center;
     font-family: "Monaco";
