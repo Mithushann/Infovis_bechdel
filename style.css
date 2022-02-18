@@ -1,3 +1,39 @@
+.all {
+    color: #6eddaa;
+}
+
+.comedy {
+    color: #fee001;
+}
+
+.action {
+    color: #e90003;
+}
+
+.romance {
+    color: #e372ba;
+}
+
+.drama{
+    color: #2050bc;
+}
+
+.horror {
+    color: #16140c;
+}
+
+.thriller {
+    color: #646665;
+}
+
+.sci-fi {
+    color: #e86c03;
+}
+
+.family {
+    color: #42a701;
+}
+
 .header_style {
     text-align: center;
     font-family: "Monaco";
