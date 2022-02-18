@@ -109,6 +109,7 @@ function display_list(list, genre) {
     let graph_data = [];
     for(let prop in passed_movies) {
         graph_data.push({years: prop, percentage: passed_movies[prop] * 100/list[prop].length});
+        console.log(passed_movies)
     } 
 
     // Add the line
@@ -159,7 +160,7 @@ function display_list(list, genre) {
 // ----------------------------------------------------------------------------------------------------
 
 // set the dimensions of the graph
-var margin = {top: 35, right: 70, bottom: 30, left: 60},
+var margin = {top: 35, right: 70, bottom: 30, left: 300},
     width = 850
     height = 350
 
@@ -185,7 +186,7 @@ svg.append("g")
 svg.append("text")
     .attr("class", "x label")
     .attr("text-anchor", "end")
-    .attr("x", width + 60)
+    .attr("x", width + 70)
     .attr("y", height + 7)
     .text("years");
 
@@ -198,15 +199,10 @@ svg.append("text")
   svg.append("text")
     .attr("class", "y label")
     .attr("text-anchor", "end")
-    .attr("x", 30)
+    .attr("x", 70)
     .attr("y", -15)
     .text("percentage");
 
-    $('.Button').click(function(e) {
-        $('.Button').not(this).removeClass('active');    
-        $(this).toggleClass('active');
-        e.preventDefault();
-    });
 
 
 

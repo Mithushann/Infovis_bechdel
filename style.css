@@ -1,21 +1,24 @@
-.btn-outline-secondary:active, .active {
-    color: #6eddaa;
-    background-color: white;
-    
-}
+.flex-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column; 
+  }
+  
+  .flex-container > div {
+    justify-content: center;
+    margin: 10px;
+    padding: 20px;
+    font-size: 30px;
+  }
 
 .header_style {
     text-align: center;
     font-family: "Monaco";
     font-size: 10em; 
-    margin-top: 40px;  
-}
-
-.graph {
-    margin-left: 10em;
-    margin-top: 4em;
+    margin-top: 40px;
+  
 }
 
 .btn-toolbar {
-    margin-left: 30em;
+    color:aqua;
 }
