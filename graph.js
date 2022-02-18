@@ -135,7 +135,7 @@ function display_list(list, genre) {
     .attr("r", 6)
     .style("fill", color)
 
-    //Hover functuion
+    //Hover function
     .on('mouseover', function (d) {
         d3.select(this)
             .attr('opacity', '.5')
@@ -202,7 +202,6 @@ svg.append("text")
     .attr("x", 70)
     .attr("y", -15)
     .text("percentage");
-
 
 
 
