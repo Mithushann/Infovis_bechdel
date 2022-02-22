@@ -21,10 +21,10 @@ d3.csv("one_movie_info.csv", function(d) {
 
 })
   
-function display_one_movie(name, key) {
+function display_one_movie(name, year, key) {
 
   if(key=='Display'){
-        let index=get_one_movi_info(data0, name)
+        let index=get_one_movi_info(data0, name, year)
 
         if(index!=null){
          one_movi=data0[0][index]
@@ -66,13 +66,16 @@ function display_one_movie(name, key) {
   }
   else if(key=='Delete'){
     svg_one_movie.selectAll('*').remove()
-    console.log('remo')
+    
   }
 }
   
-  function get_one_movi_info(d, name){
+  function get_one_movi_info(d, name, year){
     for(let i = 0; i < d[0].length; ++i) {
-      if(d[0][i].Title==name){ return i}
+      if(d[0][i].Title==name && d[0][i].Release_Year.replace('(', '').substr(0,4)==year){ return i
+      
+      }
     }
+    console.log(d[0][0].Release_Year.replace('(', '').substr(0,4)+ '==' +year)
     return null
   }

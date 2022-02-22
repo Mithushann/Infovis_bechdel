@@ -128,10 +128,10 @@ d3.csv("new_oil.csv", function(d) {
           .attr("x", index*(width1/150))
           .attr("y", 90)
           .text(passed_movies[index].title)  
-          display_one_movie(passed_movies[index].title, 'Display')
+          display_one_movie(passed_movies[index].title, year, 'Display')
         }) 
       .on('mouseout', function () { 
-          display_one_movie(passed_movies[index].title,'Delete')
+          display_one_movie(passed_movies[index].title, year, 'Delete')
           svg_year.select("#circleText").remove()
         })
       }
@@ -152,10 +152,10 @@ d3.csv("new_oil.csv", function(d) {
             .attr("x", index*(width1/150))
             .attr("y", 20)
             .text(failed_movies[index].title)
-            display_one_movie(failed_movies[index].title, 'Display') 
+            display_one_movie(failed_movies[index].title, year, 'Display') 
           }) 
         .on('mouseout', function () { 
-            display_one_movie(failed_movies[index].title,'Delete')
+            display_one_movie(failed_movies[index].title, year, 'Delete')
             svg_year.style('opacity' , 1)
             svg_year.select("#circleText").remove()
           })
