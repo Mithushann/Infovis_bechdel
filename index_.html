@@ -4,45 +4,54 @@
     <head>
         <meta charset="utf-8">
         <title> Page for bechdel test </title>
-        <link rel="stylesheet" href="style.css" />
     <script async src='/cdn-cgi/bm/cv/669835187/api.js'></script></head>
     
     <!-- Load bootstrap -->
     <link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="style.css" />
 
     <!-- OUR SCRIPTS -->
     <script src="https://d3js.org/d3.v4.js"></script>
     
     <body>
+        <div class="flex-container">
         <div class="header_style">
             <h1> Bechdel Test Score </h1>
         </div>
         
         <div id="my_dataviz" class="graph"></div>
-        <script src="graph.js"></script>
-        <script src="genres.js"></script>
-                     
-        
+        <script src="graph.js" ></script>
 
-        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-            <div class="btn-group me-2" role="group" aria-label="First group">
-              <button type="button" class="btn btn-outline-secondary" onclick="all_list()">All genres</button>
-              <button type="button" class="btn btn-outline-secondary" onclick="change_genre('Comedy')">Comedy</button>
-              <button type="button" class="btn btn-outline-secondary" onclick="change_genre('Action')" >Action</button>
-              <button type="button" class="btn btn-outline-secondary" onclick="change_genre('Romance')">Romance</button>
-              <button type="button" class="btn btn-outline-secondary" onclick="change_genre('Drama')">Drama</button>
-              <button type="button" class="btn btn-outline-secondary" onclick="change_genre('Horror')">Horror</button>
-              <button type="button" class="btn btn-outline-secondary" onclick="change_genre('Thriller')">Thriller</button>
-              <button type="button" class="btn btn-outline-secondary" onclick="change_genre('Sci-Fi')">Sci-Fi</button>
-              <button type="button" class="btn btn-outline-secondary" onclick="change_genre('Family')">Family</button>
-            </div>
+        <div>
+            <input type="checkbox" name="myCheckBox" onclick="all_list()" checked>
+            <label class="all" for="myCheckBox"> All genres </label>
+            <input type="checkbox" name="myCheckBox2" onclick="change_genre('Comedy')">
+            <label class="comedy" for="myCheckBox2"> Comedy </label>
+            <input type="checkbox" name="myCheckBox3" onclick="change_genre('Action')">
+            <label class="action" for="myCheckBox3"> Action </label>
+            <input type="checkbox" name="myCheckBox4" onclick="change_genre('Romance')">
+            <label class="romance" for="myCheckBox4"> Romance </label>
+            <input type="checkbox" name="myCheckBox5" onclick="change_genre('Drama')">
+            <label class="drama" for="myCheckBox5"> Drama </label>
+            <input type="checkbox" name="myCheckBox6" onclick="change_genre('Horror')">
+            <label class="horror" for="myCheckBox6"> Horror </label>
+            <input type="checkbox" name="myCheckBox7" onclick="change_genre('Thriller')">
+            <label class="thriller" for="myCheckBox7"> Thriller </label>
+            <input type="checkbox" name="myCheckBox8" onclick="change_genre('Sci-Fi')">
+            <label class="sci-fi" for="myCheckBox8"> Sci-Fi </label>
+            <input type="checkbox" name="myCheckBox9" onclick="change_genre('Family')">
+            <label class="family" for="myCheckBox9"> Family </label>
         </div>
+       
         <div id="year_graph1" class="y_graph"></div>
         <script src="year_graph.js"></script>
         <div id="one_movie_id" class="one-movie" ></div>
         <script src="info_one_movie.js"></script>
 
     <script type="text/javascript">(function(){window['__CF$cv$params']={r:'6dbdf4bb089515f8',m:'1NxxPWsQx_2xLJr0UOAoHunfcx1i.KDnulUR_X_1Orc-1644586479-0-AYH70kWthLFcA/GRoBekivEdq5ZgTOCDiXHBD68Vde4Lv0lOyxkvIWOxppNsQA8PO0an6eHraud4STqybTOLggQ5drf5JhlQPlhBKKzQTTp0v/w1w4j+XBssHTyf4XPT5vINSClDdT1UQmJPiTe7aQqNl9JFCxIjCh4Ofnb/rjpYUwEdy6TxEo8lBQRKZl+iHQ==',s:[0x30d84f3276,0xffe644f85a],}})();</script></body>
+       
+        </div>
+    </div>
 
     
 </html>
