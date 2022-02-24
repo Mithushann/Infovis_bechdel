@@ -52,10 +52,8 @@ function display_list(list, genre) {
         d.remove();
         return;
     }
-    console.log(genre)
     switch(genre) {
-        case 'Comedy':
-            color = "#fee001"; break;
+        case 'Comedy': color = "#fee001"; break;
         case 'Action':
             color = "#e90003"; break;
         case 'Romance':
@@ -186,18 +184,3 @@ var svg = d3.select("#my_dataviz")
     .attr("x", 70)
     .attr("y", -15)
     .text("percentage");
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
