@@ -142,8 +142,8 @@ function display_list(list, genre) {
 // ----------------------------------------------------------------------------------------------------
 
 // set the dimensions of the graph
-var margin = {top: 35, right: 70, bottom: 30, left: 300},
-    width = 850
+var margin = {top: 35, right: 70, bottom: 30, left:70 },
+    width = screen.width -  (margin.left + margin.right)-100
     height = 350
 
 // append the svg object to the body of the page
@@ -181,6 +181,6 @@ var svg = d3.select("#my_dataviz")
   svg.append("text")
     .attr("class", "y label")
     .attr("text-anchor", "end")
-    .attr("x", 70)
+    .attr("x", 80)
     .attr("y", -15)
     .text("percentage");

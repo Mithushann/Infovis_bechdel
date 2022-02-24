@@ -1,5 +1,5 @@
 var margin = {top: 35, right: 10, bottom: 30, left: 125},
-    width1 =screen.width-200
+    width1 =screen.width -  (margin.left + margin.right)-100
     height1 = 350
 var svg_one_movie = d3.select("#one_movie_id")
     .append("svg")
@@ -11,13 +11,11 @@ var svg_one_movie = d3.select("#one_movie_id")
 d3.csv("one_movie_info.csv", function(d) {
   data0=new Array(d);
   
-  var svg_one_movie = d3.select("#one_movie_id")
-  .append("svg")
-    .attr("width", width1 + margin.left + margin.right)
-    .attr("height", height1 + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform",
-          "translate(" + margin.left + "," + margin.top + ")");
+  svg_one_movie
+  .append("text")
+  .attr("x", 0)
+  .attr("y", 0)
+  .text("Hover over the boxes in year graph to get more information about one movie");
 
 })
   
@@ -72,10 +70,11 @@ function display_one_movie(name, year, key) {
   
   function get_one_movi_info(d, name, year){
     for(let i = 0; i < d[0].length; ++i) {
-      if(d[0][i].Title==name && d[0][i].Release_Year.replace('(', '').substr(0,4)==year){ return i
+      if(d[0][i].Title.toLowerCase()==name.toLowerCase() &&
+         d[0][i].Release_Year.replace('(', '').substr(0,4)==year){ return i
       
       }
     }
-    console.log(d[0][0].Release_Year.replace('(', '').substr(0,4)+ '==' +year)
+   
     return null
   }

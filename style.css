@@ -57,7 +57,7 @@
     border: 1px solid rgb(255, 255, 255);
     margin-left: 50px;
 }
-.one-movie {
+/* .one-movie {
     height: 400px;
     width:1300px;
     margin-left: 125px;
@@ -65,12 +65,11 @@
     margin-bottom: 25px;
     border: 1px solid rgb(0, 0, 0);
    
-}
+} */
 
 .btn-toolbar {
-    margin-left: 20em;
-    margin-top: 1em;
-    margin-bottom: 1em;
+    
+    justify-content: space-between; 
 }
 .one-movie-text{
     fill: rgb(0, 0, 0);
@@ -90,3 +89,4 @@
 .btn-toolbar {
     color:aqua;
 }
+

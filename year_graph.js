@@ -1,6 +1,6 @@
 // set the dimensions of the graph
 var margin = {top: 35, right: 10, bottom: 30, left: 125},
-    width1 =screen.width-200
+    width1 =screen.width -  (margin.left + margin.right)-100
     height1 = 150
 
 
@@ -64,27 +64,75 @@ d3.csv("new_oil.csv", function(d) {
   .text(year_);
 
         // Add the path using this helper function
-    for(let index in passed_movies){
-    svg_year.append('rect')
-      .attr('id', 'reckt')
-      .attr('x', index*(width1/150))
-      .attr('y', 100)
-      .attr('width', width1/150)
-      .attr('height', width1/150)
-      .attr('stroke', 'black')
-      .attr('fill', '#69a3b2');
-    }
+    // for(let index in passed_movies){
+    // svg_year.append('rect')
+    //   .attr('id', 'reckt')
+    //   .attr('x', index*(width1/150))
+    //   .attr('y', 100)
+    //   .attr('width', width1/150)
+    //   .attr('height', width1/150)
+    //   .attr('stroke', 'black')
+    //   .attr('fill', '#69a3b2');
+    // }
 
-    for(let index in failed_movies){
-        svg_year.append('rect')
-        .attr('id', 'reckt')
-          .attr('x', index*(width1/150))
-          .attr('y', 30)
-          .attr('width', width1/150)
-          .attr('height', width1/150)
-          .attr('stroke', 'black')
-          .attr('fill', '#69a3b2');
-        } 
+    // for(let index in failed_movies){
+    //     svg_year.append('rect')
+    //     .attr('id', 'reckt')
+    //       .attr('x', index*(width1/150))
+    //       .attr('y', 30)
+    //       .attr('width', width1/150)
+    //       .attr('height', width1/150)
+    //       .attr('stroke', 'black')
+    //       .attr('fill', '#69a3b2');
+    //     } 
+    for(let index in passed_movies){
+      svg_year.append('rect')
+      .attr('id', 'reckt')
+        .attr('x', index*(width1/150))
+        .attr('y', 105)
+        .attr('width', width1/150)
+        .attr('height', width1/150)
+        .attr('stroke', 'black')
+        .attr('fill', '#69a3b2')
+        .on("mouseover",function()  {
+            svg_year.append("text")
+            .attr("id", "circleText")
+            .attr("x", index*(width1/150))
+            .attr("y", 90)
+            .text(passed_movies[index].title)  
+            display_one_movie(passed_movies[index].title, year, 'Display')
+          }) 
+        .on('mouseout', function () { 
+            display_one_movie(passed_movies[index].title, year, 'Delete')
+            svg_year.select("#circleText").remove()
+          })
+        }
+  
+      for(let index in failed_movies){
+          svg_year.append('rect')
+          .attr('id', 'reckt')
+            .attr('x', index*(width1/150))
+            .attr('y', 35)
+            .attr('width', width1/150)
+            .attr('height', width1/150)
+            .attr('stroke', 'black')
+            .attr('fill', '#69a3b2')
+            .style('opacity' ,1)
+            .on("mouseover",function()  {
+              svg_year.append("text")
+              .attr("id", "circleText")
+              .attr("x", index*(width1/150))
+              .attr("y", 20)
+              .text(failed_movies[index].title)
+              display_one_movie(failed_movies[index].title, year, 'Display') 
+            }) 
+          .on('mouseout', function () { 
+              display_one_movie(failed_movies[index].title, year, 'Delete')
+              svg_year.style('opacity' , 1)
+              svg_year.select("#circleText").remove()
+            })
+          }
+    
   })
   //--------------------------------------------------
 
@@ -117,7 +165,7 @@ d3.csv("new_oil.csv", function(d) {
     svg_year.append('rect')
     .attr('id', 'reckt')
       .attr('x', index*(width1/150))
-      .attr('y', 100)
+      .attr('y', 105)
       .attr('width', width1/150)
       .attr('height', width1/150)
       .attr('stroke', 'black')
@@ -140,7 +188,7 @@ d3.csv("new_oil.csv", function(d) {
         svg_year.append('rect')
         .attr('id', 'reckt')
           .attr('x', index*(width1/150))
-          .attr('y', 30)
+          .attr('y', 35)
           .attr('width', width1/150)
           .attr('height', width1/150)
           .attr('stroke', 'black')
