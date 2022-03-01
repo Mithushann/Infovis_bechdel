@@ -62,29 +62,6 @@ d3.csv("new_oil.csv", function(d) {
   .attr("y", 0)
   .attr("class", 'year-text')
   .text(year_);
-
-        // Add the path using this helper function
-    // for(let index in passed_movies){
-    // svg_year.append('rect')
-    //   .attr('id', 'reckt')
-    //   .attr('x', index*(width1/150))
-    //   .attr('y', 100)
-    //   .attr('width', width1/150)
-    //   .attr('height', width1/150)
-    //   .attr('stroke', 'black')
-    //   .attr('fill', '#69a3b2');
-    // }
-
-    // for(let index in failed_movies){
-    //     svg_year.append('rect')
-    //     .attr('id', 'reckt')
-    //       .attr('x', index*(width1/150))
-    //       .attr('y', 30)
-    //       .attr('width', width1/150)
-    //       .attr('height', width1/150)
-    //       .attr('stroke', 'black')
-    //       .attr('fill', '#69a3b2');
-    //     } 
     for(let index in passed_movies){
       svg_year.append('rect')
       .attr('id', 'reckt')
@@ -95,15 +72,15 @@ d3.csv("new_oil.csv", function(d) {
         .attr('stroke', 'black')
         .attr('fill', '#69a3b2')
         .on("mouseover",function()  {
+          display_one_movie('', 1, 'Delete')
             svg_year.append("text")
             .attr("id", "circleText")
             .attr("x", index*(width1/150))
             .attr("y", 90)
             .text(passed_movies[index].title)  
-            display_one_movie(passed_movies[index].title, year, 'Display')
+            display_one_movie(passed_movies[index].title, year_, 'Display')
           }) 
         .on('mouseout', function () { 
-            display_one_movie(passed_movies[index].title, year, 'Delete')
             svg_year.select("#circleText").remove()
           })
         }
@@ -117,18 +94,16 @@ d3.csv("new_oil.csv", function(d) {
             .attr('height', width1/150)
             .attr('stroke', 'black')
             .attr('fill', '#69a3b2')
-            .style('opacity' ,1)
             .on("mouseover",function()  {
+              display_one_movie('', 1, 'Delete')
               svg_year.append("text")
               .attr("id", "circleText")
               .attr("x", index*(width1/150))
               .attr("y", 20)
               .text(failed_movies[index].title)
-              display_one_movie(failed_movies[index].title, year, 'Display') 
+              display_one_movie(failed_movies[index].title, year_, 'Display') 
             }) 
           .on('mouseout', function () { 
-              display_one_movie(failed_movies[index].title, year, 'Delete')
-              svg_year.style('opacity' , 1)
               svg_year.select("#circleText").remove()
             })
           }
@@ -163,14 +138,16 @@ d3.csv("new_oil.csv", function(d) {
 
     for(let index in passed_movies){
     svg_year.append('rect')
-    .attr('id', 'reckt')
+    .attr("id", "reckt")
       .attr('x', index*(width1/150))
       .attr('y', 105)
       .attr('width', width1/150)
       .attr('height', width1/150)
       .attr('stroke', 'black')
       .attr('fill', '#69a3b2')
+      .style('opacity' , 1)
       .on("mouseover",function()  {
+          display_one_movie('', 1, 'Delete')
           svg_year.append("text")
           .attr("id", "circleText")
           .attr("x", index*(width1/150))
@@ -179,14 +156,13 @@ d3.csv("new_oil.csv", function(d) {
           display_one_movie(passed_movies[index].title, year, 'Display')
         }) 
       .on('mouseout', function () { 
-          display_one_movie(passed_movies[index].title, year, 'Delete')
           svg_year.select("#circleText").remove()
         })
       }
 
     for(let index in failed_movies){
         svg_year.append('rect')
-        .attr('id', 'reckt')
+          .attr('id', 'reckt')
           .attr('x', index*(width1/150))
           .attr('y', 35)
           .attr('width', width1/150)
@@ -195,16 +171,16 @@ d3.csv("new_oil.csv", function(d) {
           .attr('fill', '#69a3b2')
           .style('opacity' ,1)
           .on("mouseover",function()  {
+            display_one_movie('', 1, 'Delete')
             svg_year.append("text")
             .attr("id", "circleText")
             .attr("x", index*(width1/150))
             .attr("y", 20)
+            .style('opacity' , .1)
             .text(failed_movies[index].title)
             display_one_movie(failed_movies[index].title, year, 'Display') 
           }) 
         .on('mouseout', function () { 
-            display_one_movie(failed_movies[index].title, year, 'Delete')
-            svg_year.style('opacity' , 1)
             svg_year.select("#circleText").remove()
           })
         }
