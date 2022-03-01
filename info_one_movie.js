@@ -16,6 +16,8 @@ d3.csv("one_movie_info.csv", function(d) {
   .append("text")
   .attr("x", 0)
   .attr("y", 0)
+  .style("font-size", "20px")
+  .style("font-family", "Georgia")
   .text("Hover over the boxes in year graph to get more information about one movie");
 
 })
@@ -61,8 +63,8 @@ oneMovie = async function(title, year){
        .attr("width", 960)
       .attr("height", 900)
       .append("xhtml:div")
-      .style("font", "25px 'Helvetica Neue'")
-         .html("<p><strong>Title: </strong> "+one_movi.Title+ "</p>");
+      .style("font", "20px 'Georgia'")
+         .html("<p> <strong> Title: </strong> "+one_movi.Title+ "</p>");
       
        svg_one_movie.append("foreignObject")
        .attr("x", 225)
@@ -70,7 +72,7 @@ oneMovie = async function(title, year){
        .attr("width", 960)
       .attr("height", 900)
       .append("xhtml:div")
-      .style("font", "25px 'Helvetica Neue'")
+      .style("font", "20px 'Georgia'")
          .html("<p><strong>Year: </strong> "+one_movi.Year+ "</p>");
 
        svg_one_movie.append("foreignObject")
@@ -79,7 +81,7 @@ oneMovie = async function(title, year){
        .attr("width", 960)
       .attr("height", 900)
       .append("xhtml:div")
-      .style("font", "25px 'Helvetica Neue'")
+      .style("font", "20px 'Georgia'")
          .html("<p><strong>Director: </strong> "+one_movi.Director+ "</p>");
 
        svg_one_movie.append("foreignObject")
@@ -88,7 +90,7 @@ oneMovie = async function(title, year){
        .attr("width", 960)
       .attr("height", 900)
       .append("xhtml:div")
-      .style("font", "25px 'Helvetica Neue'")
+      .style("font", "20px 'Georgia'")
          .html("<p><strong>Genre: </strong> "+one_movi.Genre+ "</p>");
 
        svg_one_movie.append("foreignObject")
@@ -97,7 +99,7 @@ oneMovie = async function(title, year){
       .attr("width", 2500)
       .attr("height", 900)
       .append("xhtml:div")
-      .style("font", "25px 'Helvetica Neue'")
+      .style("font", "20px 'Georgia'")
          .html("<p><strong>Actors: </strong> "+one_movi.Actors+ "</p>");
 
       svg_one_movie.append("foreignObject")
@@ -106,7 +108,7 @@ oneMovie = async function(title, year){
       .attr("width", 960)
       .attr("height", 900)
       .append("xhtml:div")
-      .style("font", "25px 'Helvetica Neue'")
+      .style("font", "20px 'Georgia'")
          .html("<p><strong> Awards: </strong> "+one_movi.Awards+ "</p>");
 
       svg_one_movie.append("foreignObject")
@@ -115,7 +117,7 @@ oneMovie = async function(title, year){
       .attr("width", 960)
       .attr("height", 900)
       .append("xhtml:div")
-      .style("font", "25px 'Helvetica Neue'")
+      .style("font", "20px 'Georgia'")
          .html("<p><strong>Box Office:</strong> "+one_movi.BoxOffice+ "</p>");
      
 
@@ -125,7 +127,7 @@ oneMovie = async function(title, year){
        .attr("width", 1500)
        .attr("height", 900)
        .append("xhtml:div")
-       .style("font", "25px 'Helvetica Neue'")
+       .style("font", "20px 'Georgia'")
          .html("<p><strong>Plot:</strong> "+one_movi.Plot+ "</p>");
 
 

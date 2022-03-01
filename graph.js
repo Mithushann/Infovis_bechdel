@@ -126,6 +126,8 @@ function display_list(list, genre) {
             .attr("id", "circleText")
             .attr("x", x(parseDate(d.years)) - 15)
             .attr("y", y(d.percentage)  - 30)
+            .style("font-size", "15px")
+            .style("font-family", "Georgia")
             .text(d.years)
   
     ;})
@@ -170,6 +172,8 @@ var svg = d3.select("#my_dataviz")
     .attr("text-anchor", "end")
     .attr("x", width + 70)
     .attr("y", height + 7)
+    .style("font-size", "20px")
+    .style("font-family", "Georgia")
     .text("years");
 
   // Add Y axis
@@ -181,6 +185,8 @@ var svg = d3.select("#my_dataviz")
   svg.append("text")
     .attr("class", "y label")
     .attr("text-anchor", "end")
-    .attr("x", 80)
+    .attr("x", 50)
     .attr("y", -15)
+    .style("font-size", "20px")
+    .style("font-family", "Georgia")
     .text("percentage");

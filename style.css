@@ -48,7 +48,7 @@
 
 .header_style {
     text-align: center;
-    font-family: "Monaco";
+    font-family: "Georgia", serif;
     font-size: 10em; 
     margin-top: 10px;  
 }
@@ -67,26 +67,4 @@
    
 } */
 
-.btn-toolbar {
-    
-    justify-content: space-between; 
-}
-.one-movie-text{
-    fill: rgb(0, 0, 0);
-    font-size: 20px;
-    font-family: sans-serif;
-    align-content: center;
-}
-
-.year-text {
-    fill: rgb(0, 0, 0);
-    font-size: 20px;
-    font-family: sans-serif;
-    margin-top: 40px;
-  
-}
-
-.btn-toolbar {
-    color:aqua;
-}
 

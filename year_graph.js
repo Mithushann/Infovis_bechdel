@@ -16,7 +16,7 @@ var svg_year = d3.select("#year_graph1")
 
   //Add X axis
   var x1 = d3.scaleLinear()
-    .domain([0,150])
+    .domain([1,150])
     .range([ 0, width1 ]);
   svg_year.append("g")
     .attr("transform", "translate(0," + height1 + ")")
@@ -43,71 +43,9 @@ d3.csv("new_oil.csv", function(d) {
   }
 
   let year_=2021 //default year
-  given_year = data1[year_]
-  passed_movies=new Array()
-  failed_movies=new Array()
 
-  for(let movie in given_year) {
-      if(given_year[movie].rating == 3){
-          passed_movies.push(given_year[movie])
-      }
-      else{
-          failed_movies.push(given_year[movie])
-      }  
-  }
-
-  svg_year.append("text")
-  .attr('id', 'yeear1')
-  .attr("x", 10)
-  .attr("y", 0)
-  .attr("class", 'year-text')
-  .text(year_);
-    for(let index in passed_movies){
-      svg_year.append('rect')
-      .attr('id', 'reckt')
-        .attr('x', index*(width1/150))
-        .attr('y', 105)
-        .attr('width', width1/150)
-        .attr('height', width1/150)
-        .attr('stroke', 'black')
-        .attr('fill', '#69a3b2')
-        .on("mouseover",function()  {
-          display_one_movie('', 1, 'Delete')
-            svg_year.append("text")
-            .attr("id", "circleText")
-            .attr("x", index*(width1/150))
-            .attr("y", 90)
-            .text(passed_movies[index].title)  
-            display_one_movie(passed_movies[index].title, year_, 'Display')
-          }) 
-        .on('mouseout', function () { 
-            svg_year.select("#circleText").remove()
-          })
-        }
+  yearGraph(year_)
   
-      for(let index in failed_movies){
-          svg_year.append('rect')
-          .attr('id', 'reckt')
-            .attr('x', index*(width1/150))
-            .attr('y', 35)
-            .attr('width', width1/150)
-            .attr('height', width1/150)
-            .attr('stroke', 'black')
-            .attr('fill', '#69a3b2')
-            .on("mouseover",function()  {
-              display_one_movie('', 1, 'Delete')
-              svg_year.append("text")
-              .attr("id", "circleText")
-              .attr("x", index*(width1/150))
-              .attr("y", 20)
-              .text(failed_movies[index].title)
-              display_one_movie(failed_movies[index].title, year_, 'Display') 
-            }) 
-          .on('mouseout', function () { 
-              svg_year.select("#circleText").remove()
-            })
-          }
-    
   })
   //--------------------------------------------------
 
@@ -116,17 +54,28 @@ d3.csv("new_oil.csv", function(d) {
   passed_movies=new Array()
   failed_movies=new Array()
 
+  passed_data = []
+  num_passed = 0
+
+  failed_data = []
+  num_failed = 0
+
     for(let movie in given_year) {
         if(given_year[movie].rating == 3){
             passed_movies.push(given_year[movie])
+            num_passed = num_passed + 1
+            passed_data.push({title: passed_movies[num_passed - 1].title, state: "Passed", number: num_passed});
         }
         else{
             failed_movies.push(given_year[movie])
+            num_failed = num_failed + 1
+            failed_data.push({title: failed_movies[num_failed - 1].title, state: "Failed", number: num_failed});
         }  
     }
 
   svg_year.selectAll("#yeear1").remove()
-  svg_year.selectAll('rect').remove()
+  svg_year.selectAll('#rect_passed').remove()
+  svg_year.selectAll('#rect_failed').remove()
 
     // Add the path using this helper function
     svg_year.append("text")
@@ -134,56 +83,84 @@ d3.csv("new_oil.csv", function(d) {
     .attr("x", 10)
     .attr("y", 0)
     .attr("class", 'year-text')
+    .style("font-size", "30px")
+    .style("font-family", "Georgia")
     .text(year);
 
-    for(let index in passed_movies){
-    svg_year.append('rect')
-    .attr("id", "reckt")
-      .attr('x', index*(width1/150))
-      .attr('y', 105)
+    svg_year.append('g')
+      .attr("id", "rect_passed")
+      .selectAll('.rect')
+      .data(passed_data)
+      .enter()
+      .append('rect')
+      .attr('x', function (d) { return x1(d.number)} )
+      .attr('y', function (d) { return y1(d.state) })
+      .attr('stroke', 'black')
       .attr('width', width1/150)
       .attr('height', width1/150)
-      .attr('stroke', 'black')
-      .attr('fill', '#69a3b2')
-      .style('opacity' , 1)
-      .on("mouseover",function()  {
+      .attr('fill', 'green')
+
+      .on("mouseover",function(d)  {
           display_one_movie('', 1, 'Delete')
+
+          d3.select(this)
+          .attr('opacity', '.5')
+          
           svg_year.append("text")
-          .attr("id", "circleText")
-          .attr("x", index*(width1/150))
-          .attr("y", 90)
-          .text(passed_movies[index].title)  
-          display_one_movie(passed_movies[index].title, year, 'Display')
+
+          .attr("id", "passedText")
+          .attr("x", x1(d.number))
+          .attr("y", y1(d.state) - 10)
+          .style("font-size", "15px")
+          .style("font-family", "Georgia")
+          .text(d.title)  
+          
+          display_one_movie(d.title, year, 'Display')
         }) 
       .on('mouseout', function () { 
-          svg_year.select("#circleText").remove()
-        })
-      }
+        d3.select(this).transition()
+        .attr('opacity', '1')
 
-    for(let index in failed_movies){
-        svg_year.append('rect')
-          .attr('id', 'reckt')
-          .attr('x', index*(width1/150))
-          .attr('y', 35)
-          .attr('width', width1/150)
-          .attr('height', width1/150)
-          .attr('stroke', 'black')
-          .attr('fill', '#69a3b2')
-          .style('opacity' ,1)
-          .on("mouseover",function()  {
-            display_one_movie('', 1, 'Delete')
-            svg_year.append("text")
-            .attr("id", "circleText")
-            .attr("x", index*(width1/150))
-            .attr("y", 20)
-            .style('opacity' , .1)
-            .text(failed_movies[index].title)
-            display_one_movie(failed_movies[index].title, year, 'Display') 
-          }) 
-        .on('mouseout', function () { 
-            svg_year.select("#circleText").remove()
-          })
-        }
+        svg_year.select("#passedText").remove()
+        })
+      
+    
+      svg_year.append('g')
+        .attr("id", "rect_failed")
+        .selectAll('.rect')
+        .data(failed_data)
+        .enter()
+        .append('rect')
+        .attr('x', function (d) { return x1(d.number)} )
+        .attr('y', function (d) { return y1(d.state) })
+        .attr('stroke', 'black')
+        .attr('width', width1/150)
+        .attr('height', width1/150)
+        .attr('fill', 'red')
+
+        .on("mouseover",function(d)  {
+          display_one_movie('', 1, 'Delete')
+
+          d3.select(this)
+          .attr('opacity', '.5')
+          
+          svg_year.append("text")
+          .attr("id", "failedText")
+          .attr("x", x1(d.number))
+          .attr("y", y1(d.state) - 10)
+          .style("font-size", "15px")
+          .style("font-family", "Georgia")
+          .text(d.title)  
+          
+          display_one_movie(d.title, year, 'Display')
+        }) 
+      .on('mouseout', function () { 
+        d3.select(this).transition()
+        .attr('opacity', '1')
+
+          svg_year.select("#failedText").remove()
+        })
+        
   
 }
 
