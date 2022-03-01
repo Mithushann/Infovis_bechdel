@@ -7,12 +7,13 @@
   .flex-container > div {
     /*background-color: #f1f1f1;*/
     flex: 1 1 auto;
-    margin: 10px;
+    margin: 40px;
     text-align: left;
     line-height: 35px;
     font-size: 20px;
-    font-family: "Monaco";
   }
+
+
 
   input[type=checkbox] {
     vertical-align: middle;
@@ -78,9 +79,13 @@ label {
 
 .header_style {
     text-align: center;
-    font-family: "Monaco";
+    font-family: "Georgia", serif;
     font-size: 10em; 
     margin-top: 10px;  
+}
+
+.buttons{
+    font-family: "Georgia", serif;
 }
 
 .graph {
@@ -100,14 +105,14 @@ label {
 .one-movie-text{
     fill: rgb(0, 0, 0);
     font-size: 20px;
-    font-family: "Monaco";
+    font-family: "Georgia", serif;
     align-content: center;
 }
 
 .year-text {
     fill: rgb(0, 0, 0);
     font-size: 20px;
-    font-family: sans-serif;
+    font-family: "Georgia", serif;
     margin-top: 40px;
   
 }

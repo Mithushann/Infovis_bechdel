@@ -120,11 +120,13 @@ function display_list(list, genre) {
         yearGraph(d.years)
         d3.select(this)
             .attr('opacity', '.5')
+            .style("font-family", "Monaco")
         
         svg.append("text")
             .attr("id", "circleText")
             .attr("x", x(parseDate(d.years)) - 15)
             .attr("y", y(d.percentage)  - 30)
+            .style("font-family", "Monaco")
             .text(d.years)
   
     ;})
