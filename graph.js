@@ -90,7 +90,6 @@ function display_list(list, genre) {
     let graph_data = [];
     for(let prop in passed_movies) {
         graph_data.push({years: prop, percentage: passed_movies[prop] * 100/list[prop].length});
-        
     } 
 
     // Add the line
@@ -143,7 +142,7 @@ function display_list(list, genre) {
 
 // set the dimensions of the graph
 var margin = {top: 35, right: 70, bottom: 30, left:70 },
-    width = screen.width -  (margin.left + margin.right)-100
+    width = screen.width -  (margin.left + margin.right)-350
     height = 350
 
 // append the svg object to the body of the page
