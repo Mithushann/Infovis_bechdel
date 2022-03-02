@@ -12,13 +12,13 @@ var svg_one_movie = d3.select("#one_movie_id")
 d3.csv("one_movie_info.csv", function(d) {
   data0=new Array(d);
   
-  svg_one_movie
+  /*svg_one_movie
   .append("text")
   .attr("x", 0)
   .attr("y", 0)
   .style("font-size", "20px")
   .style("font-family", "Georgia")
-  .text("Hover over the boxes in year graph to get more information about one movie");
+  .text("Hover over the boxes in year graph to get more information about one movie");*/
 
 })
   

@@ -3,7 +3,6 @@ var margin = {top: 35, right: 10, bottom: 30, left: 125},
     width1 =screen.width -  (margin.left + margin.right)-100
     height1 = 150
 
-
 // append the svg object to the body of the page
 var svg_year = d3.select("#year_graph1")
 .append("svg")
@@ -13,22 +12,16 @@ var svg_year = d3.select("#year_graph1")
   .attr("transform",
         "translate(" + margin.left + "," + margin.top + ")");
 
+//Add X axis
+var x1 = d3.scaleLinear()
+  .domain([1,150])
+  .range([ 0, width1]);
 
-  //Add X axis
-  var x1 = d3.scaleLinear()
-    .domain([1,150])
-    .range([ 0, width1 ]);
-  svg_year.append("g")
-    .attr("transform", "translate(0," + height1 + ")")
-    .call(d3.axisBottom(x1).ticks(30));
+// Add Y axis
+var y1 = d3.scaleOrdinal()
+  .domain(["Passed", "Failed"])
+  .range([ height1-40, 70]);
 
-
-  // Add Y axis
-  var y1 = d3.scaleOrdinal()
-    .domain(["Passed", "Failed"])
-    .range([ height1-40, 40]);
-  svg_year.append("g")
-    .call(d3.axisLeft(y1));
 
 //Year wise graph
 //--------------------------------------------------
@@ -41,15 +34,19 @@ d3.csv("new_oil.csv", function(d) {
   for(let i = 0; i < d.length; ++i) {
       data1[d[i].year].push(d[i]) 
   }
-
-  let year_=2021 //default year
-
-  yearGraph(year_)
   
   })
   //--------------------------------------------------
 
  function yearGraph(year) {
+    
+  /*svg_year.append("g")
+    .attr("transform", "translate(0," + height1 + ")")
+    .call(d3.axisBottom(x1).ticks(30));*/
+
+  svg_year.append("g")
+    .call(d3.axisLeft(y1));
+
   given_year = data1[year]
   passed_movies=new Array()
   failed_movies=new Array()
@@ -73,20 +70,6 @@ d3.csv("new_oil.csv", function(d) {
         }  
     }
 
-  svg_year.selectAll("#yeear1").remove()
-  svg_year.selectAll('#rect_passed').remove()
-  svg_year.selectAll('#rect_failed').remove()
-
-    // Add the path using this helper function
-    svg_year.append("text")
-    .attr('id', 'yeear1')
-    .attr("x", 10)
-    .attr("y", 0)
-    .attr("class", 'year-text')
-    .style("font-size", "30px")
-    .style("font-family", "Georgia")
-    .text(year);
-
     svg_year.append('g')
       .attr("id", "rect_passed")
       .selectAll('.rect')
@@ -107,7 +90,6 @@ d3.csv("new_oil.csv", function(d) {
           .attr('opacity', '.5')
           
           svg_year.append("text")
-
           .attr("id", "passedText")
           .attr("x", x1(d.number))
           .attr("y", y1(d.state) - 10)

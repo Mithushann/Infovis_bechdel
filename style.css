@@ -11,7 +11,6 @@
     text-align: left;
     line-height: 35px;
     font-size: 20px;
-    font-family: "Monaco";
   }
 
   input[type=checkbox] {
@@ -83,17 +82,45 @@ label {
     margin-top: 10px;  
 }
 
+.buttons {
+    font-family: "Georgia", serif;
+}
+
 .graph {
     border: 1px solid rgb(255, 255, 255);
     margin-left: 50px;
 }
-/* .one-movie {
-    height: 400px;
-    width:1300px;
-    margin-left: 125px;
-    margin-top: 100px;
-    margin-bottom: 25px;
-    border: 1px solid rgb(0, 0, 0);
-   
-} */
+
+div.tooltip {	
+    position: absolute;			
+    text-align: center;			
+    width: 130px;					
+    height: 35px;					
+    padding: 2px;				
+    font: 12px sans-serif;		
+    background: #f1f1f1;	
+    border: 0px;		
+    border-radius: 8px;			
+    pointer-events: none;			
+}
+
+small_div.tooltip {	
+    position: absolute;			
+    text-align: center;			
+    width: 1500px;					
+    height: 35px;					
+    padding: 2px;				
+    font: 12px sans-serif;		
+    background: #f1f1f1;	
+    border: 0px;		
+    border-radius: 20px;			
+    pointer-events: none;			
+}
+
+.selected {
+    opacity: 0.5;
+}
+.deselected {
+    opacity: 1;
+}
 
