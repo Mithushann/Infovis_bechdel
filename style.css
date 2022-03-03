@@ -94,33 +94,22 @@ label {
 div.tooltip {	
     position: absolute;			
     text-align: center;			
-    width: 130px;					
-    height: 35px;					
+    width: 200px;					
+    height: 40px;					
     padding: 2px;				
-    font: 12px sans-serif;		
+    font: 13px Georgia;		
     background: #f1f1f1;	
     border: 0px;		
     border-radius: 8px;			
     pointer-events: none;			
 }
 
-small_div.tooltip {	
-    position: absolute;			
-    text-align: center;			
-    width: 1500px;					
-    height: 35px;					
+message_div.tooltip {	
+    position: absolute;		
+    text-align: center center; 
     padding: 2px;				
-    font: 12px sans-serif;		
-    background: #f1f1f1;	
-    border: 0px;		
-    border-radius: 20px;			
+    font: 13px Georgia;		
+    background: #f1f1f1;			
     pointer-events: none;			
-}
-
-.selected {
-    opacity: 0.5;
-}
-.deselected {
-    opacity: 1;
 }
 
