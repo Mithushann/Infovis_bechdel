@@ -9,18 +9,7 @@ var svg_one_movie = d3.select("#one_movie_id")
     .append("g")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
-d3.csv("one_movie_info.csv", function(d) {
-  data0=new Array(d);
-  
-  /*svg_one_movie
-  .append("text")
-  .attr("x", 0)
-  .attr("y", 0)
-  .style("font-size", "20px")
-  .style("font-family", "Georgia")
-  .text("Hover over the boxes in year graph to get more information about one movie");*/
 
-})
   
 function display_one_movie(name, year, key) {
 
@@ -31,22 +20,13 @@ function display_one_movie(name, year, key) {
     svg_one_movie.selectAll('*').remove()
   }
 }
-  
-  function get_one_movi_info(d, name, year){
-    for(let i = 0; i < d[0].length; ++i) {
-      if(d[0][i].Title==name &&
-         d[0][i].Release_Year.replace('(', '').substr(0,4)==year){ return i }
-    }
-    return null
-  }
-
   //8ffbcbc1
   //OMDB api regust
 
 oneMovie = async function(title, year){
-  await axios.get('http://www.omdbapi.com/?apikey=8ffbcbc1&t='+title+'&y='+year)
+ await axios.get('http://www.omdbapi.com/?apikey=8ffbcbc1&t='+title+'&y='+year)
   .then((response) => {
-    console.log(response.data)
+    //console.log(response.data)
     if(response.data.Response=='True'){
      let one_movi=response.data
      
@@ -133,10 +113,87 @@ oneMovie = async function(title, year){
 
     }
     else if(response.data.Response=='False'){
-      svg_one_movie.append("text")
+
+       svg_one_movie.append('image')
+
+       .attr('xlink:href','https://ih1.redbubble.net/image.1027712254.9762/fposter,small,wall_texture,product,750x1000.u2.jpg')
+       .attr('x',0)
+       .attr('y',0)
+       .attr('width', 200)
+       .attr('height', 400)
+     
+       svg_one_movie.append("foreignObject")
        .attr("x", 225)
-       .attr("y", 170)
-       .text(response.data.Error);
+       .attr("y", 60)
+       .attr("width", 960)
+      .attr("height", 900)
+      .append("xhtml:div")
+      .style("font", "20px 'Georgia'")
+         .html("<p> <strong> Title: </strong> "+title+ "</p>");
+      
+       svg_one_movie.append("foreignObject")
+       .attr("x", 225)
+       .attr("y",90)
+       .attr("width", 960)
+      .attr("height", 900)
+      .append("xhtml:div")
+      .style("font", "20px 'Georgia'")
+         .html("<p><strong>Year: </strong> "+year+ "</p>");
+
+       svg_one_movie.append("foreignObject")
+       .attr("x", 225)
+       .attr("y", 120)
+       .attr("width", 960)
+      .attr("height", 900)
+      .append("xhtml:div")
+      .style("font", "20px 'Georgia'")
+         .html("<p><strong>Director: </strong> "+'N/A'+ "</p>");
+
+       svg_one_movie.append("foreignObject")
+       .attr("x", 225)
+       .attr("y", 150)
+       .attr("width", 960)
+      .attr("height", 900)
+      .append("xhtml:div")
+      .style("font", "20px 'Georgia'")
+         .html("<p><strong>Genre: </strong> "+'N/A'+ "</p>");
+
+       svg_one_movie.append("foreignObject")
+      .attr("x", 225)
+      .attr("y", 180)
+      .attr("width", 2500)
+      .attr("height", 900)
+      .append("xhtml:div")
+      .style("font", "20px 'Georgia'")
+         .html("<p><strong>Actors: </strong> "+'N/A'+ "</p>");
+
+      svg_one_movie.append("foreignObject")
+      .attr("x", 225)
+      .attr("y", 210)
+      .attr("width", 960)
+      .attr("height", 900)
+      .append("xhtml:div")
+      .style("font", "20px 'Georgia'")
+         .html("<p><strong> Awards: </strong> "+'N/A'+ "</p>");
+
+      svg_one_movie.append("foreignObject")
+      .attr("x", 225)
+      .attr("y", 240)
+      .attr("width", 960)
+      .attr("height", 900)
+      .append("xhtml:div")
+      .style("font", "20px 'Georgia'")
+         .html("<p><strong>Box Office:</strong> "+'N/A'+ "</p>");
+     
+
+      svg_one_movie.append("foreignObject")
+       .attr("x", 225)
+       .attr("y", 270)
+       .attr("width", 1500)
+       .attr("height", 900)
+       .append("xhtml:div")
+       .style("font", "20px 'Georgia'")
+         .html("<p><strong>Plot:</strong> "+'N/A'+ "</p>");
     }
      
      })
