@@ -1,15 +1,44 @@
 .flex-container {
     display: flex;
-    justify-content: center;
-    flex-direction: column; 
+    flex-wrap: nowrap;
+    /*background-color: DodgerBlue;*/
   }
   
   .flex-container > div {
-    justify-content: center;
+    /*background-color: #f1f1f1;*/
+    flex: 1 1 auto;
     margin: 10px;
-    padding: 20px;
-    font-size: 30px;
+    text-align: left;
+    line-height: 35px;
+    font-size: 20px;
   }
+
+  input[type=checkbox] {
+    vertical-align: middle;
+    position: relative;
+    bottom: 1px;
+    
+}
+  
+label {
+    display: block;
+}
+
+
+  .flex-container2 {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    /*background-color: green;*/
+  }
+
+  .flex-container2 > div {
+    /*background-color: #f1f1f1;*/
+    margin: 10px;
+    line-height: 75px;
+    font-size: 16px;
+  }
+
 .all {
     color: #6eddaa;
 }
@@ -48,12 +77,39 @@
 
 .header_style {
     text-align: center;
-    font-family: "Monaco";
+    font-family: "Georgia", serif;
     font-size: 10em; 
-    margin-top: 40px;
-  
+    margin-top: 10px;  
 }
 
-.btn-toolbar {
-    color:aqua;
+.buttons {
+    font-family: "Georgia", serif;
 }
+
+.graph {
+    border: 1px solid rgb(255, 255, 255);
+    margin-left: 50px;
+}
+
+div.tooltip {	
+    position: absolute;			
+    text-align: center;			
+    width: 200px;					
+    height: 40px;					
+    padding: 2px;				
+    font: 13px Georgia;		
+    background: #f1f1f1;	
+    border: 0px;		
+    border-radius: 8px;			
+    pointer-events: none;			
+}
+
+message_div.tooltip {	
+    position: absolute;		
+    text-align: center center; 
+    padding: 2px;				
+    font: 13px Georgia;		
+    background: #f1f1f1;			
+    pointer-events: none;			
+}
+
