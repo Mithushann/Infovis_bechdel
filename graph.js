@@ -1,5 +1,5 @@
-
-// // ------------------------------------------ FUNCTIONS ------------------------------------------- // 
+// ----------------------------------------------- FUNCTIONS ---------------------------------------------- //
+// ------------------------------------------------------------------------------------------------------- //
 
 let data = new Map();
 let raw_data;
@@ -103,9 +103,6 @@ function display_list(list, genre) {
         .x(function(d) { return x(parseDate(d.years))})
         .y(function(d) { return y(d.percentage) }));
 
-    // Toggle variable for onclick
-    var toggleSelected = true;
-
     //add the dots
     svg.append('g')
     .attr("id", genre + "_dots")
@@ -120,71 +117,83 @@ function display_list(list, genre) {
 
     //Hover function
     .on('mouseover', function (d) {
-
-        d3.select(this)
-            .attr('opacity', '.5')
-
+        
         div.transition()				
             .style("opacity", .9);		
-        div	.html("Year: " + d.years + "<br/>"  + "Num. of movies: " + list[d.years].length)	
+        div	.html("<strong> Year: </strong>" + d.years + "<br/>"  + " <strong> Tot. number of movies: </strong> " + list[d.years].length)	
             .style("left", (d3.event.pageX) + "px")		
             .style("top", (d3.event.pageY - 28) + "px");
 
     ;})
     .on('mouseout', function () {
-          d3.select(this).transition()
-               .attr('opacity', '1')
   
-            div.transition()				
+        message_div.transition().style("opacity", 0);
+
+        div.transition()				
                .style("opacity", 0);	
   
     ;})
     
-    //on-click function
-    .on('click', function (d) {
+    //On-click function
+    .on('click', function (d) { 
 
-        if(toggleSelected == true) {
-            d3.select(this).classed("selected", true);
-            
-            yearGraph(d.years)
+    if (genre == 'all_genres' && d3.select(this).style("opacity") == 1) {
+        
+        svg_year.selectAll("*").remove()
+        yearGraph(d.years)
 
-            d3.select("#year_graph1").style("background-color", "#f1f1f1")
+        svg.selectAll("circle").style("opacity", 1)
+        d3.select(this).style('opacity', .5)
+    
+        d3.select("#year_graph1").style("background-color", "#f1f1f1")
 
-            svg_year.append("text")
-            .attr('id', 'chosen_year')
-            .attr("x", 10)
-            .attr("y", 0)
-            .attr("class", 'year-text')
-            .style("font-size", "30px")
-            .style("font-family", "Georgia")
-            .text(d.years)
+        svg_year.append("text")
+        .attr('id', 'chosen_year')
+        .attr("x", 10)
+        .attr("y", 0)
+        .attr("class", 'year-text')
+        .style("font-size", "30px")
+        .style("font-family", "Georgia")
+        .text(d.years)
 
-            svg_year.append("text")
-            .attr('id', 'undertext')
-            .attr("x", 10)
-            .attr("y", 25)
-            .attr("class", 'year-text')
-            .style("font-size", "17px")
-            .style("font-family", "Georgia")
-            .text("a total of " + list[d.years].length + " movies was made")
+        svg_year.append("text")
+        .attr('id', 'undertext')
+        .attr("x", 10)
+        .attr("y", 25)
+        .attr("class", 'year-text')
+        .style("font-size", "17px")
+        .style("font-family", "Georgia")
+        .text("a total of " + list[d.years].length + " movies was made")
 
-
-            toggleSelected = false;
-        } 
-        else {
-            d3.select(this).classed("deselected", true);
-
+        }
+        else if (genre == 'all_genres') {
+            d3.select(this).style('opacity', 1)
             svg_year.selectAll("*").remove()
             d3.select("#year_graph1").style("background-color", "white")
 
-            toggleSelected = true;
         } 
-        
+        else {
+            svg_year.selectAll("*").remove()
+            d3.select("#year_graph1").style("background-color", "white")
+            svg.selectAll("circle").style("opacity", 1)
+
+            div.transition()				
+               .style("opacity", 0);
+            
+            message_div.transition()				
+            .style("opacity", .9);		
+            
+            message_div	.html(" <strong> Not clickable! </strong>")	
+            .style("left", (d3.event.pageX) + "px")		
+            .style("top", (d3.event.pageY - 28) + "px");
+
+        }
         
     ;})
 }
 
-// ----------------------------------------------------------------------------------------------------
+// ----------------------------------------------- MAIN -------------------------------------------------- //
+// ------------------------------------------------------------------------------------------------------- //
 
 // set the dimensions of the graph
 var margin = {top: 35, right: 70, bottom: 30, left:70 },
@@ -203,8 +212,12 @@ var svg = d3.select("#my_dataviz")
   //Setting scale parameters
   let parseDate = d3.timeParse("%Y");
 
-// Define the div for the tooltip
+// Define the divs for the tooltips
 var div = d3.select("body").append("div")	
+.attr("class", "tooltip")				
+.style("opacity", 0);
+
+var message_div = d3.select("body").append("div")	
 .attr("class", "tooltip")				
 .style("opacity", 0);
 
