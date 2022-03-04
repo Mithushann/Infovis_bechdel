@@ -126,7 +126,7 @@ function display_list(list, genre) {
 
     ;})
     .on('mouseout', function () {
-  
+        
         message_div.transition().style("opacity", 0);
 
         div.transition()				
@@ -136,7 +136,7 @@ function display_list(list, genre) {
     
     //On-click function
     .on('click', function (d) { 
-
+        display_one_movie('name', 1, 'Delete')
     if (genre == 'all_genres' && d3.select(this).style("opacity") == 1) {
         
         svg_year.selectAll("*").remove()
@@ -170,10 +170,11 @@ function display_list(list, genre) {
             d3.select(this).style('opacity', 1)
             svg_year.selectAll("*").remove()
             d3.select("#year_graph1").style("background-color", "white")
-
+            
         } 
         else {
             svg_year.selectAll("*").remove()
+    
             d3.select("#year_graph1").style("background-color", "white")
             svg.selectAll("circle").style("opacity", 1)
 
