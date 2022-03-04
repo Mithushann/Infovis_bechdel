@@ -4,7 +4,7 @@
 let data = new Map();
 let raw_data;
 
-//read in the csv file and filter to the wanted years
+// Read in the csv file and filter to the wanted years
 d3.csv("new_oil.csv", function(k){
 
     raw_data = k.filter(line => line.year > 1970);
@@ -19,7 +19,7 @@ d3.csv("new_oil.csv", function(k){
     all_list();
 })
 
-//change between genres
+// Function that changes between genres
 function change_genre(genre) {
 
     let sorted = raw_data.filter(line => {return line.genres.includes(genre)});
@@ -36,11 +36,12 @@ function change_genre(genre) {
     display_list(sorted2, genre)
     
 }
-// for the button "all genres"
+// Function for "all genres"
 function all_list() {
     display_list(data, 'all_genres');
 }
-//display the list on button click
+
+// Display the list on button click
 function display_list(list, genre) {
 
     let color;
@@ -52,6 +53,8 @@ function display_list(list, genre) {
         d.remove();
         return;
     }
+
+    // Add different colors to the genres
     switch(genre) {
         case 'Comedy': color = "#fee001"; break;
         case 'Action':
@@ -74,6 +77,7 @@ function display_list(list, genre) {
      
     let passed_movies = new Map();
 
+    // Creates the list of passed movies 
     for(let prop in list) {
         passed_movies[prop] = 0;
     }
@@ -88,6 +92,7 @@ function display_list(list, genre) {
     }
 
     let graph_data = [];
+    // Creates the list with the certain year and the percentage that passed that year
     for(let prop in passed_movies) {
         graph_data.push({years: prop, percentage: passed_movies[prop] * 100/list[prop].length});
     } 
@@ -103,7 +108,7 @@ function display_list(list, genre) {
         .x(function(d) { return x(parseDate(d.years))})
         .y(function(d) { return y(d.percentage) }));
 
-    //add the dots
+    // Add the dots
     svg.append('g')
     .attr("id", genre + "_dots")
     .selectAll("dot")
@@ -115,7 +120,7 @@ function display_list(list, genre) {
     .attr("r", 6)
     .style("fill", color)
 
-    //Hover function
+    // Hover function
     .on('mouseover', function (d) {
         
         div.transition()				
@@ -134,36 +139,42 @@ function display_list(list, genre) {
   
     ;})
     
-    //On-click function
+    // On-click function
     .on('click', function (d) { 
-        display_one_movie('name', 1, 'Delete')
-    if (genre == 'all_genres' && d3.select(this).style("opacity") == 1) {
-        
-        svg_year.selectAll("*").remove()
-        yearGraph(d.years)
-
-        svg.selectAll("circle").style("opacity", 1)
-        d3.select(this).style('opacity', .5)
     
-        d3.select("#year_graph1").style("background-color", "#f1f1f1")
+        // Deletes the information about one movie 
+        display_one_movie('name', 1, 'Delete')
 
-        svg_year.append("text")
-        .attr('id', 'chosen_year')
-        .attr("x", 10)
-        .attr("y", 0)
-        .attr("class", 'year-text')
-        .style("font-size", "30px")
-        .style("font-family", "Georgia")
-        .text(d.years)
+        if (genre == 'all_genres' && d3.select(this).style("opacity") == 1) {
+            
+            svg_year.selectAll("*").remove()
+            
+            // Calls the function that draws the pop-up graph
+            yearGraph(d.years)
 
-        svg_year.append("text")
-        .attr('id', 'undertext')
-        .attr("x", 10)
-        .attr("y", 25)
-        .attr("class", 'year-text')
-        .style("font-size", "17px")
-        .style("font-family", "Georgia")
-        .text("a total of " + list[d.years].length + " movies was made")
+            svg.selectAll("circle").style("opacity", 1)
+            d3.select(this).style('opacity', .5)
+        
+            d3.select("#year_graph1").style("background-color", "#f1f1f1")
+
+            // Text for the title of the pop-up graph
+            svg_year.append("text")
+            .attr('id', 'chosen_year')
+            .attr("x", 10)
+            .attr("y", 0)
+            .attr("class", 'year-text')
+            .style("font-size", "30px")
+            .style("font-family", "Georgia")
+            .text(d.years)
+
+            svg_year.append("text")
+            .attr('id', 'undertext')
+            .attr("x", 10)
+            .attr("y", 25)
+            .attr("class", 'year-text')
+            .style("font-size", "17px")
+            .style("font-family", "Georgia")
+            .text("a total of " + list[d.years].length + " movies was made")
 
         }
         else if (genre == 'all_genres') {
@@ -196,12 +207,12 @@ function display_list(list, genre) {
 // ----------------------------------------------- MAIN -------------------------------------------------- //
 // ------------------------------------------------------------------------------------------------------- //
 
-// set the dimensions of the graph
+// Set the dimensions of the overview-graph
 var margin = {top: 35, right: 70, bottom: 30, left:70 },
     width = screen.width -  (margin.left + margin.right)-350
     height = 350
 
-// append the svg object to the body of the page
+// Append the svg object to the body of the page
 var svg = d3.select("#my_dataviz")
   .append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -210,8 +221,8 @@ var svg = d3.select("#my_dataviz")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
-  //Setting scale parameters
-  let parseDate = d3.timeParse("%Y");
+//Setting scale parameters for x-axis
+let parseDate = d3.timeParse("%Y");
 
 // Define the divs for the tooltips
 var div = d3.select("body").append("div")	
@@ -223,13 +234,13 @@ var message_div = d3.select("body").append("div")
 .style("opacity", 0);
 
 // Add X axis
-  var x = d3.scaleTime()
+var x = d3.scaleTime()
     .domain([parseDate(1970), parseDate(2021)])
     .range([ 0, width ]);
-  svg.append("g")
+svg.append("g")
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x).ticks(5));
-  svg.append("text")
+svg.append("text")
     .attr("class", "x label")
     .attr("text-anchor", "end")
     .attr("x", width + 70)
@@ -238,13 +249,13 @@ var message_div = d3.select("body").append("div")
     .style("font-family", "Georgia")
     .text("years");
 
-  // Add Y axis
-  var y = d3.scaleLinear()
+// Add Y axis
+var y = d3.scaleLinear()
     .domain([0, 100])
     .range([ height, 0]);
-  svg.append("g")
+svg.append("g")
     .call(d3.axisLeft(y).ticks(10));
-  svg.append("text")
+svg.append("text")
     .attr("class", "y label")
     .attr("text-anchor", "end")
     .attr("x", 50)
